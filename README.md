@@ -1,2 +1,2 @@
-# RB-Net
+# rb-net
 Basic React + Bootstrap Social Network
