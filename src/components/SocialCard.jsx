@@ -31,7 +31,7 @@ function SocialCard(props) {
           </Card.Text>
           <Row className={"m-0 g-0 p-0"}>
             <Col xs="4">
-              <Button className="w-75" variant="danger" onClick={}>
+              <Button className="w-75" variant="danger">
                 <BsArrowDownSquare />
               </Button>
             </Col>
