@@ -7,7 +7,13 @@ import {
   BsSkipForward,
 } from "react-icons/bs";
 
-function SocialCard() {
+function SocialCard(props) {
+
+  function handleSkip(event){
+    
+  }
+
+
   return (
     <IconContext.Provider
       value={{
@@ -21,14 +27,11 @@ function SocialCard() {
         <Card.Body>
           <Card.Title>Title</Card.Title>
           <Card.Text>
-            Placeholder. Placeholder. Placeholder. Placeholder. Placeholder.
-            Placeholder. Placeholder. Placeholder. Placeholder. Placeholder.
-            Placeholder. Placeholder. Placeholder. Placeholder. Placeholder.
-            Placeholder.
+            {props.post.content}
           </Card.Text>
           <Row className={"m-0 g-0 p-0"}>
             <Col xs="4">
-              <Button className="w-75" variant="danger">
+              <Button className="w-75" variant="danger" onClick={}>
                 <BsArrowDownSquare />
               </Button>
             </Col>

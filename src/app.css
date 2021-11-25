@@ -1,0 +1,9 @@
+.app{
+    width: 100vw !important;
+    height: 100vh !important;
+    background-color: #c9b6a1;
+}
+.loading{
+    margin: auto;
+    padding-top: 20%;
+}
