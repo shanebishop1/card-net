@@ -18,6 +18,8 @@ export default async function loadPosts(setTopPosts, setLoaded) {
       topPosts.push(new Post(2, "three", "them", "now", data[2]));
       setTopPosts(topPosts);
       setLoaded(true);
+    }).catch((error)=>{
+      console.log(error);
     });
   // one extra step
 }
