@@ -1,5 +1,5 @@
 const allowedOrigins = [
-  'https://card-net.shane-b.workers.dev',
+  'https://card-net.pages.dev',
   'http://localhost:3000',
 ]
 
@@ -31,13 +31,13 @@ async function handleRequest(request) {
       return await getRecentPosts(request)
     }
     case 'POST': {
-      const action = request.headers.get('Cn-action');
+      const action = request.headers.get('Cn-action')
       switch (action) {
         case 'getPosts': {
-          return await getPosts(request);
+          return await getPosts(request)
         }
         case 'postContent': {
-          return await postContent(request);
+          return await postContent(request)
         }
       }
     }
@@ -67,12 +67,12 @@ async function getPosts(request) {
   const quantity = parseInt(postJSON.quantity)
   let recentID = parseInt(postJSON.recentID)
   // 0 indicates to fetch most recent posts
-  if(recentID == 0) recentID = parseInt(await CN_KV_SPACE.get('postCount'));
+  if (recentID == 0) recentID = parseInt(await CN_KV_SPACE.get('postCount'))
 
   let postOutput = {}
   let postArray = []
   for (let i = recentID; i > recentID - quantity; i--) {
-    if(i < 1) break;
+    if (i < 1) break
     postArray.push(await CN_KV_SPACE.get(i))
   }
   postOutput.posts = postArray
@@ -86,12 +86,12 @@ async function getPosts(request) {
 
 async function postContent(request) {
   let postJSON = await request.json()
-  let postCount = parseInt(await CN_KV_SPACE.get('postCount'));
-  let countString = (postCount + 1).toString();
-  await CN_KV_SPACE.put('postCount', countString);
-  postJSON.id = countString;
-  await CN_KV_SPACE.put(countString, JSON.stringify(postJSON));
-  console.log(JSON.stringify(postJSON));
+  let postCount = parseInt(await CN_KV_SPACE.get('postCount'))
+  let countString = (postCount + 1).toString()
+  await CN_KV_SPACE.put('postCount', countString)
+  postJSON.id = countString
+  await CN_KV_SPACE.put(countString, JSON.stringify(postJSON))
+  console.log(JSON.stringify(postJSON))
   return new Response('CONTENT ADDED', {
     headers: {
       'Content-type': 'application/json',
