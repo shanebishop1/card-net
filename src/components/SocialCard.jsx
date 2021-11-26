@@ -8,11 +8,7 @@ import {
 } from "react-icons/bs";
 
 function SocialCard(props) {
-
-  function handleSkip(event){
-    
-  }
-
+  async function handleSkip(event) {}
 
   return (
     <IconContext.Provider
@@ -26,9 +22,7 @@ function SocialCard(props) {
         <Card.Header>Name</Card.Header>
         <Card.Body>
           <Card.Title>Title</Card.Title>
-          <Card.Text>
-            {props.post.content}
-          </Card.Text>
+          <Card.Text>{props.post.content}</Card.Text>
           <Row className={"m-0 g-0 p-0"}>
             <Col xs="4">
               <Button className="w-75" variant="danger">
@@ -36,7 +30,7 @@ function SocialCard(props) {
               </Button>
             </Col>
             <Col xs="4">
-              <Button className="w-75" variant="primary">
+              <Button className="w-75" variant="primary" onClick={handleSkip}>
                 <BsSkipForward />
               </Button>
             </Col>

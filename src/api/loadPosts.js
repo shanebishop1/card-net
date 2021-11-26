@@ -1,25 +1,39 @@
 import axios from "axios";
 import { Post } from "../post";
 
-export default async function loadPosts(setTopPosts, setLoaded) {
-  // axios.get("http://localhost:3333/posts").then(
-  //     response => {
-  //         topPosts = response.data.posts;
-  //     }, error =>{
-  //         console.log(error);
-  //     }
-  // )
-  const ps = await fetch("http://localhost:3333/posts")
-    .then((response) => response.json())
-    .then((data) => {
-      let topPosts = [];
-      topPosts.push(new Post(0, "one", "me", "now", data[0]));
-      topPosts.push(new Post(1, "two", "you", "now", data[1]));
-      topPosts.push(new Post(2, "three", "them", "now", data[2]));
-      setTopPosts(topPosts);
-      setLoaded(true);
-    }).catch((error)=>{
-      console.log(error);
-    });
-  // one extra step
+async function loadPosts(
+  url,
+  recentID,
+  cardsToReplace,
+  posts,
+  setPosts,
+  setLoaded
+) {
+  let newPosts = [...posts];
+  let quantity = cardsToReplace.length;
+
+  const dataOut = {
+    quantity: quantity.toString(),
+    recentID: recentID.toString(),
+  };
+  await axios
+    .post(url, dataOut, {
+      headers: { "Content-Type": "application/json", "Cn-action": "getPosts" },
+    })
+    .then(
+      (response) => {
+        let data = response.data;
+        for (let i = 0; i < data.posts.length; i++) {
+          if (i >= quantity) break;
+          newPosts[cardsToReplace[i]] = JSON.parse(data.posts[i]);
+        }
+        setPosts(newPosts);
+        setLoaded(true);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
 }
+
+export { loadPosts };

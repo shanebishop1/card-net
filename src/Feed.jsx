@@ -8,16 +8,16 @@ import "./app.css";
 function Feed(props) {
   return (
     <Container fluid className="p-0 bg-light text-dark">
-      <NavBar />
+      <NavBar workerUrl={props.workerUrl}/>
       <Row className={"m-3 g-3"}>
         <Col lg>
-          <SocialCard post={props.topPosts[0]} />
+          <SocialCard workerURL={props.workerURL} post={props.posts[0]} />
         </Col>
         <Col lg>
-          <SocialCard post={props.topPosts[1]} />
+          <SocialCard workerURL={props.workerURL} post={props.posts[1]} />
         </Col>
         <Col lg>
-          <SocialCard post={props.topPosts[2]} />
+          <SocialCard workerURL={props.workerURL} post={props.posts[2]} />
         </Col>
       </Row>
     </Container>

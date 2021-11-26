@@ -1,8 +1,21 @@
 import { Navbar, Button } from "react-bootstrap";
 import { IconContext } from "react-icons";
 import { BsPlusCircleFill } from "react-icons/bs";
+import sendPost from "../api/sendPost";
+import { Post } from "../post";
 
 const NavBar = (props) => {
+  async function handlePostClick() {
+    let post1 = new Post(
+      "0",
+      "post",
+      "me",
+      "now",
+      "creative stuff"
+    );
+    sendPost(props.workerUrl, post1);
+  }
+
   return (
     <IconContext.Provider
       value={{
@@ -28,6 +41,7 @@ const NavBar = (props) => {
             marginLeft: "auto",
             marginRight: "2%",
           }}
+          onClick={handlePostClick}
         >
           <BsPlusCircleFill />
         </Button>
