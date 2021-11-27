@@ -18,8 +18,8 @@ import Feed from "./Feed";
 import "./app.css";
 
 function App() {
-  //const WORKER_URL = "https://card-net.shane-b.workers.dev";
-  const WORKER_URL = "http://127.0.0.1:8787";
+  const WORKER_URL = "https://card-net.shane-b.workers.dev";
+  //const WORKER_URL = "http://127.0.0.1:8787";
 
   const [posts, setPosts] = useState([new Post(), new Post(), new Post()]);
 
