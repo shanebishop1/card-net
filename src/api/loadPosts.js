@@ -7,14 +7,15 @@ async function loadPosts(
   cardsToReplace,
   posts,
   setPosts,
-  setLoaded
+  setLoaded,
+  setRecentID
 ) {
   let newPosts = [...posts];
   let quantity = cardsToReplace.length;
 
   const dataOut = {
     quantity: quantity.toString(),
-    recentID: recentID.toString(),
+    recentID: recentID,
   };
   await axios
     .post(url, dataOut, {
@@ -26,6 +27,8 @@ async function loadPosts(
         for (let i = 0; i < data.posts.length; i++) {
           if (i >= quantity) break;
           newPosts[cardsToReplace[i]] = JSON.parse(data.posts[i]);
+          if (i == data.posts.length - 1)
+            setRecentID(newPosts[cardsToReplace[i]].id - 1);
         }
         setPosts(newPosts);
         setLoaded(true);
@@ -36,4 +39,12 @@ async function loadPosts(
     );
 }
 
-export { loadPosts };
+async function refreshAll(WORKER_URL, posts, setPosts, setLoaded, setRecentID) {
+  let toUpdate = [];
+  for (let i = 0; i < posts.length; i++) {
+    toUpdate.push(i);
+  }
+  loadPosts(WORKER_URL, 0, toUpdate, posts, setPosts, setLoaded, setRecentID);
+}
+
+export { loadPosts, refreshAll };

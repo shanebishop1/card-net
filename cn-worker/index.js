@@ -1,6 +1,7 @@
 const allowedOrigins = [
   'https://card-net.pages.dev',
   'http://localhost:3000',
+  'http://localhost:5000',
 ]
 
 const corsHeaders = origin => ({
@@ -39,6 +40,9 @@ async function handleRequest(request) {
         case 'postContent': {
           return await postContent(request)
         }
+        case 'addVote': {
+          return await addVote(request)
+        }
       }
     }
     case 'OPTIONS': {
@@ -51,21 +55,10 @@ async function handleRequest(request) {
   }
 }
 
-// async function getRecentPosts(request) {
-//   let valKV = await CN_KV_SPACE.get('hello')
-
-//   return new Response(valKV, {
-//     headers: {
-//       'Content-type': 'application/json',
-//       ...corsHeaders(checkOrigin(request)),
-//     },
-//   })
-// }
-
 async function getPosts(request) {
   const postJSON = await request.json()
   const quantity = parseInt(postJSON.quantity)
-  let recentID = parseInt(postJSON.recentID)
+  let recentID = postJSON.recentID
   // 0 indicates to fetch most recent posts
   if (recentID == 0) recentID = parseInt(await CN_KV_SPACE.get('postCount'))
 
@@ -87,12 +80,30 @@ async function getPosts(request) {
 async function postContent(request) {
   let postJSON = await request.json()
   let postCount = parseInt(await CN_KV_SPACE.get('postCount'))
-  let countString = (postCount + 1).toString()
-  await CN_KV_SPACE.put('postCount', countString)
-  postJSON.id = countString
-  await CN_KV_SPACE.put(countString, JSON.stringify(postJSON))
+  let count = postCount + 1
+  await CN_KV_SPACE.put('postCount', count)
+  postJSON.id = count
+  await CN_KV_SPACE.put(count, JSON.stringify(postJSON))
   console.log(JSON.stringify(postJSON))
   return new Response('CONTENT ADDED', {
+    headers: {
+      'Content-type': 'application/json',
+      ...corsHeaders(checkOrigin(request)),
+    },
+  })
+}
+
+async function addVote(request) {
+  let inData = await request.json()
+  let id = inData.id
+  let voteType = inData.voteType
+  let post = JSON.parse(await CN_KV_SPACE.get(id))
+  if (voteType == 'up') post.score = post.score + 1
+  if (voteType == 'down') post.score = post.score - 1
+  console.log('post' + JSON.stringify(post))
+  await CN_KV_SPACE.put(id, JSON.stringify(post))
+
+  return new Response('VOTE RECEIVED', {
     headers: {
       'Content-type': 'application/json',
       ...corsHeaders(checkOrigin(request)),
@@ -104,4 +115,11 @@ async function handleOptions(request) {
   return new Response('OK', {
     headers: corsHeaders(checkOrigin(request)),
   })
+}
+
+async function wipePosts(startID, endID) {
+  while (startID <= endID) {
+    await CN_KV_SPACE.delete(startID)
+    startID++
+  }
 }
