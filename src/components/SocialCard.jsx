@@ -1,19 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Card, Row, Button, Col } from "react-bootstrap";
 import { IconContext } from "react-icons";
-import "../custom.scss";
+import "../app.scss";
 import {
   BsArrowDownCircleFill,
   BsArrowUpCircleFill,
-  BsSkipForwardCircleFill,
 } from "react-icons/bs";
+import { getPrettyTime } from "../util/utils";
 import addVote from "../api/addVote";
 
 function SocialCard(props) {
-  async function handleSkip(event) {
-    props.replacePosts([props.feedNum]);
-  }
-
   async function handleUp(event) {
     addVote(props.workerURL, props.post.id, "up");
     props.replacePosts([props.feedNum]);
@@ -22,19 +18,6 @@ function SocialCard(props) {
   async function handleDown(event) {
     addVote(props.workerURL, props.post.id, "down");
     props.replacePosts([props.feedNum]);
-  }
-
-  function getPrettyTime(date) {
-    const options = {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    };
-    const fullDate = new Date(date);
-    return fullDate.toLocaleDateString("en-US", options);
   }
 
   return (

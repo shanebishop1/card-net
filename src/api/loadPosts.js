@@ -1,5 +1,4 @@
 import axios from "axios";
-import { Post } from "../post";
 
 async function loadPosts(
   url,

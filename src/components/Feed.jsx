@@ -1,9 +1,9 @@
 import { React, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import NavBar from "./components/NavBar";
-import SocialCard from "./components/SocialCard";
-import PostModal from "./components/PostModal";
-import "./app.css";
+import NavBar from "./NavBar";
+import SocialCard from "./SocialCard";
+import PostModal from "./PostModal";
+import "../app.css";
 
 function Feed(props) {
   const [show, setShow] = useState(false);

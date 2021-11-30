@@ -2,7 +2,7 @@ import { Navbar, Button } from "react-bootstrap";
 import { IconContext } from "react-icons";
 import { BsArrowClockwise, BsPlusCircleFill } from "react-icons/bs";
 import sendPost from "../api/sendPost";
-import { Post } from "../post";
+import { Post } from "../util/post";
 
 const NavBar = (props) => {
   async function handlePlusClick() {

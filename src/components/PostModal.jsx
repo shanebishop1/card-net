@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { Card, Row, Button, Col, Modal, Form } from "react-bootstrap";
 import { IconContext } from "react-icons";
 import sendPost from "../api/sendPost";
-import "../custom.scss";
-import { Post } from "../post";
+import "../app.scss";
+import { Post } from "../util/post";
 import "./postmodal.scss";
 
 function PostModal(props) {
