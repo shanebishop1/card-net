@@ -27,7 +27,7 @@ function SocialCard(props) {
     >
       <Card style={{ height: "70vh", maxHeight: "70vh" }} bg="secondary">
         <Card.Header>
-          <Card.Title>{props.post.title}</Card.Title>
+          <Card.Title><strong>{props.post.title}</strong></Card.Title>
           <Card.Text>
             <div style={{ color: "#161c3f" }}> @{props.post.username}</div>
             {getPrettyTime(props.post.time)}
