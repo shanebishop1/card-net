@@ -35,19 +35,19 @@ function PostModal(props) {
         <Modal.Title>New Post</Modal.Title>
       </Modal.Header>
       <Form onSubmit={handleSubmit} id="post-modal-body" className="post-modal">
-        <Form.Group className="mb-3" controlId="formBasicName">
-          <Form.Label>Name</Form.Label>
-          <Form.Control ref={firstFieldRef} type="text" placeholder="Name" />
-        </Form.Group>
-
         <Form.Group className="mb-3" controlId="formBasicTitle">
           <Form.Label>Post Title</Form.Label>
-          <Form.Control type="text" placeholder="Title" />
+          <Form.Control ref={firstFieldRef} type="text" placeholder="Title" />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formBasicName">
+          <Form.Label>Name</Form.Label>
+          <Form.Control type="text" placeholder="Name" />
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formPostText">
           <Form.Label>Content</Form.Label>
-          <Form.Control as="textarea" rows={7} />
+          <Form.Control placeholder="Content" as="textarea" rows={7} />
         </Form.Group>
         <Modal.Footer className="post-modal">
           <Button type="submit" variant="primary">
