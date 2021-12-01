@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default async function sendPost(url, post) {
-  const dataOut = post;
+  const dataOut = JSON.stringify(post);
 
   axios
     .post(url, dataOut, {

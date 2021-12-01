@@ -11,6 +11,8 @@ const corsHeaders = origin => ({
   'Access-Control-Allow-Headers': '*',
 })
 
+const defaultQuantityToGet = 3
+
 const checkOrigin = request => {
   const origin = request.headers.get('Origin')
   const accessibleOrigin = allowedOrigins.find(allowedOrigin =>
@@ -49,13 +51,14 @@ async function handleRequest(request) {
       return await handleOptions(request)
     }
     default: {
-      console.log('Not a GET, POST, or OPTIONS request')
-      return new Response('Bad Request')
+      return new Response('Method not allowed', {status: 405})
     }
   }
 }
 
 async function getPosts(request) {
+  // wipePosts(4,27);
+  // await CN_KV_SPACE.put("postCount",3);
   const postJSON = await request.json()
   const quantity = parseInt(postJSON.quantity)
   let recentID = postJSON.recentID
@@ -77,20 +80,49 @@ async function getPosts(request) {
   })
 }
 
-async function postContent(request) {
-  let postJSON = await request.json()
-  let postCount = parseInt(await CN_KV_SPACE.get('postCount'))
-  let count = postCount + 1
-  await CN_KV_SPACE.put('postCount', count)
-  postJSON.id = count
-  await CN_KV_SPACE.put(count, JSON.stringify(postJSON))
-  console.log(JSON.stringify(postJSON))
-  return new Response('CONTENT ADDED', {
+async function getRecentPosts(request) {
+  const quantity = defaultQuantityToGet
+  let recentID = parseInt(await CN_KV_SPACE.get('postCount'))
+  let postOutput = {}
+  let postArray = []
+  for (let i = recentID; i > recentID - quantity; i--) {
+    if (i < 1) break
+    postArray.push(await CN_KV_SPACE.get(i))
+  }
+  postOutput.posts = postArray
+  return new Response(JSON.stringify(postOutput), {
     headers: {
       'Content-type': 'application/json',
       ...corsHeaders(checkOrigin(request)),
     },
   })
+}
+
+async function postContent(request) {
+  try {
+    let postJSON = await request.json()
+    let postCount = parseInt(await CN_KV_SPACE.get('postCount'))
+    let count = postCount + 1
+    await CN_KV_SPACE.put('postCount', count)
+    postJSON.id = count
+    await CN_KV_SPACE.put(count, JSON.stringify(postJSON))
+    console.log(JSON.stringify(postJSON))
+    return new Response('success', {
+      status: 200,
+      headers: {
+        'Content-type': 'text/plain',
+        ...corsHeaders(checkOrigin(request)),
+      },
+    })
+  } catch (error) {
+    return new Response(error.message, {
+      status: 500,
+      headers: {
+        'Content-type': 'text/plain',
+        ...corsHeaders(checkOrigin(request)),
+      },
+    })
+  }
 }
 
 async function addVote(request) {

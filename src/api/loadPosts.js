@@ -46,4 +46,29 @@ async function refreshAll(WORKER_URL, posts, setPosts, setLoaded, setRecentID) {
   loadPosts(WORKER_URL, 0, toUpdate, posts, setPosts, setLoaded, setRecentID);
 }
 
-export { loadPosts, refreshAll };
+async function refreshByGet(
+  WORKER_URL,
+  posts,
+  setPosts,
+  setLoaded,
+  setRecentID
+) {
+  let newPosts = [...posts];
+  let quantity = 3;
+  await axios.get(WORKER_URL).then(
+    (response) => {
+      let data = response.data;
+      for (let i = 0; i < quantity; i++) {
+        newPosts[i] = JSON.parse(data.posts[i]);
+        if (i === quantity - 1) setRecentID(newPosts[i].id - 1);
+      }
+      setPosts(newPosts);
+      setLoaded(true);
+    },
+    (error) => {
+      console.log(error);
+    }
+  );
+}
+
+export { loadPosts, refreshAll, refreshByGet };

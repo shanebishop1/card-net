@@ -5,7 +5,7 @@ import {
 } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import ReactLoading from "react-loading";
-import { loadPosts, refreshAll } from "./api/loadPosts";
+import { loadPosts, refreshAll, refreshByGet } from "./api/loadPosts";
 import { Post } from "./util/post";
 import Feed from "./components/Feed";
 import "./app.css";

@@ -29,9 +29,10 @@ function SocialCard(props) {
         <Card.Header>
           <Card.Title><strong>{props.post.title}</strong></Card.Title>
           <Card.Text>
-            <div style={{ color: "#161c3f" }}> @{props.post.username}</div>
-            {getPrettyTime(props.post.time)}
-            <div
+            <span style={{ color: "#161c3f" }}> @{props.post.username} <br />
+            <span style={{ color: "#141916" }}>             {getPrettyTime(props.post.time)}</span>
+            <br />
+            <span
               style={{ color: props.post.score > -1 ? "#266941" : "#6d231e" }}
             >
               {" "}
@@ -41,7 +42,8 @@ function SocialCard(props) {
               props.post.score == 0
                 ? "s"
                 : ""}
-            </div>
+                </span>
+            </span>
           </Card.Text>
         </Card.Header>
         <Card.Body
@@ -49,6 +51,7 @@ function SocialCard(props) {
           className="overflow-auto"
         >
           <Card.Text>{props.post.content}</Card.Text>
+          {props.post.hasOwnProperty("image") && <img style={{maxHeight:"100%", maxWidth:"100%"}}src={props.post.image}/>}
         </Card.Body>
         <Card.Footer>
           <Row className={"m-0 g-0 p-0"}>

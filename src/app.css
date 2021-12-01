@@ -2,6 +2,7 @@
     width: 100vw !important;
     height: 100vh !important;
     background-color: #c9b6a1;
+    padding-bottom: calc(1em + env(safe-area-inset-bottom));
 }
 .loading{
     margin: auto;
