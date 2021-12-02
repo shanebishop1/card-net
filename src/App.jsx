@@ -1,8 +1,4 @@
-import {
-  React,
-  useState,
-  useEffect,
-} from "react";
+import { React, useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import ReactLoading from "react-loading";
 import { loadPosts, refreshAll, refreshByGet } from "./api/loadPosts";
@@ -12,10 +8,9 @@ import "./app.css";
 
 function App() {
   const WORKER_URL = "https://card-net.shane-b.workers.dev";
-  //const WORKER_URL = "http://127.0.0.1:8787";
+  // const WORKER_URL = "http://127.0.0.1:8787";
 
   const [posts, setPosts] = useState([new Post(), new Post(), new Post()]);
-
   const [loaded, setLoaded] = useState(false);
   const [recentID, setRecentID] = useState(0);
 

@@ -34,30 +34,37 @@ async function handleRequest(request) {
       return await getRecentPosts(request)
     }
     case 'POST': {
-      const action = request.headers.get('Cn-action')
-      switch (action) {
-        case 'getPosts': {
-          return await getPosts(request)
+      if (request.headers.has('Cn-action')) {
+        const action = request.headers.get('Cn-action')
+        switch (action) {
+          case 'getPosts': {
+            return await getPosts(request)
+          }
+          case 'postContent': {
+            return await postContent(request)
+          }
+          case 'addVote': {
+            return await addVote(request)
+          }
+          default: {
+            return await postContent(request)
+          }
         }
-        case 'postContent': {
-          return await postContent(request)
-        }
-        case 'addVote': {
-          return await addVote(request)
-        }
+      } else {
+        return await postContent(request)
       }
     }
     case 'OPTIONS': {
       return await handleOptions(request)
     }
     default: {
-      return new Response('Method not allowed', {status: 405})
+      return new Response('Method not allowed', { status: 405 })
     }
   }
 }
 
 async function getPosts(request) {
-  // wipePosts(4,27);
+  // wipePosts(27,27);
   // await CN_KV_SPACE.put("postCount",3);
   const postJSON = await request.json()
   const quantity = parseInt(postJSON.quantity)
@@ -106,7 +113,7 @@ async function postContent(request) {
     await CN_KV_SPACE.put('postCount', count)
     postJSON.id = count
     await CN_KV_SPACE.put(count, JSON.stringify(postJSON))
-    console.log(JSON.stringify(postJSON))
+    // console.log("New Post: ", JSON.stringify(postJSON))
     return new Response('success', {
       status: 200,
       headers: {
@@ -132,7 +139,6 @@ async function addVote(request) {
   let post = JSON.parse(await CN_KV_SPACE.get(id))
   if (voteType == 'up') post.score = post.score + 1
   if (voteType == 'down') post.score = post.score - 1
-  console.log('post' + JSON.stringify(post))
   await CN_KV_SPACE.put(id, JSON.stringify(post))
 
   return new Response('VOTE RECEIVED', {

@@ -27,22 +27,29 @@ function SocialCard(props) {
     >
       <Card style={{ height: "70vh", maxHeight: "70vh" }} bg="secondary">
         <Card.Header>
-          <Card.Title><strong>{props.post.title}</strong></Card.Title>
+          <Card.Title>
+            <strong>{props.post.title}</strong>
+          </Card.Title>
           <Card.Text>
-            <span style={{ color: "#161c3f" }}> @{props.post.username} <br />
-            <span style={{ color: "#141916" }}>             {getPrettyTime(props.post.time)}</span>
-            <br />
-            <span
-              style={{ color: props.post.score > -1 ? "#266941" : "#6d231e" }}
-            >
+            <span style={{ color: "#161c3f" }}>
               {" "}
-              {props.post.score} point
-              {props.post.score < -1 ||
-              props.post.score > 1 ||
-              props.post.score == 0
-                ? "s"
-                : ""}
-                </span>
+              @{props.post.username} <br />
+              <span style={{ color: "#141916" }}>
+                {" "}
+                {getPrettyTime(props.post.time)}
+              </span>
+              <br />
+              <span
+                style={{ color: props.post.score > -1 ? "#266941" : "#6d231e" }}
+              >
+                {" "}
+                {props.post.score} point
+                {props.post.score < -1 ||
+                props.post.score > 1 ||
+                props.post.score == 0
+                  ? "s"
+                  : ""}
+              </span>
             </span>
           </Card.Text>
         </Card.Header>
@@ -51,7 +58,16 @@ function SocialCard(props) {
           className="overflow-auto"
         >
           <Card.Text>{props.post.content}</Card.Text>
-          {props.post.hasOwnProperty("image") && <img style={{maxHeight:"100%", maxWidth:"100%"}}src={props.post.image}/>}
+          <div
+            style={{ textAlign: "center", maxHeight: "100%", maxWidth: "100%" }}
+          >
+            {props.post.hasOwnProperty("image") && (
+              <img
+                style={{ maxHeight: "100%", maxWidth: "100%" }}
+                src={props.post.image}
+              />
+            )}
+          </div>
         </Card.Body>
         <Card.Footer>
           <Row className={"m-0 g-0 p-0"}>
