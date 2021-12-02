@@ -2,7 +2,7 @@ import React from "react";
 import { Card, Row, Button, Col } from "react-bootstrap";
 import { IconContext } from "react-icons";
 import "../app.scss";
-import { BsArrowDownCircleFill, BsArrowUpCircleFill } from "react-icons/bs";
+import { BsHandThumbsDownFill, BsHandThumbsUpFill } from "react-icons/bs";
 import { getPrettyTime } from "../util/utils";
 import addVote from "../api/addVote";
 
@@ -63,7 +63,7 @@ function SocialCard(props) {
           >
             {props.post.hasOwnProperty("image") && (
               <img
-                style={{ maxHeight: "100%", maxWidth: "100%" }}
+                style={{ maxHeight: "100%", maxWidth: "100%", borderRadius:"5%" }}
                 src={props.post.image}
               />
             )}
@@ -77,7 +77,7 @@ function SocialCard(props) {
                 variant="danger"
                 onClick={(e) => handleDown(e)}
               >
-                <BsArrowDownCircleFill />
+                <BsHandThumbsDownFill />
               </Button>
             </Col>
             <Col className="ps-3" xs="6">
@@ -86,7 +86,7 @@ function SocialCard(props) {
                 variant="success"
                 onClick={(e) => handleUp(e)}
               >
-                <BsArrowUpCircleFill />
+                <BsHandThumbsUpFill />
               </Button>
             </Col>
           </Row>

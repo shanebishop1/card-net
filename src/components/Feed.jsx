@@ -22,6 +22,8 @@ function Feed(props) {
         workerURL={props.workerURL}
         handleClose={handleClose}
         show={show}
+        posts={props.posts}
+        setPosts={props.setPosts}
       />
       <Row className={"m-3 g-3"}>
         {props.posts.map((post, index) => {

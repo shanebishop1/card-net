@@ -24,9 +24,10 @@ function PostModal(props) {
     if (event.target.elements[3].files[0]) {
       newPost.setImage(await getBase64(event.target.elements[3].files[0]));
     }
-
     sendPost(props.workerURL, newPost);
-    console.log(newPost);
+    let newCollection = [...props.posts];
+    newCollection[0] = newPost;
+    props.setPosts(newCollection);
   };
   return (
     <Modal
