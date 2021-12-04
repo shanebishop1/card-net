@@ -1,7 +1,5 @@
 const allowedOrigins = [
   'https://card-net.pages.dev',
-  'http://localhost:3000',
-  'http://localhost:5000',
 ]
 
 const corsHeaders = origin => ({
