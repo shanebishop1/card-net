@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from "react";
 import ReactLoading from "react-loading";
-import { loadPosts, refreshAll, refreshByGet } from "./api/loadPosts";
+import { loadPosts, refreshAll } from "./api/loadPosts";
 import { Post } from "./util/post";
 import Feed from "./components/Feed";
 import "./app.css";
@@ -32,16 +32,6 @@ function App() {
       setRecentID
     );
   }
-
-  useEffect(() => {
-    console.log("Posts Updated:");
-    console.log(posts);
-  }, [posts]);
-
-  useEffect(() => {
-    console.log("RID Updated:");
-    console.log(recentID);
-  }, [recentID]);
 
   return (
     <div className="app">

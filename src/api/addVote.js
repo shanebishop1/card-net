@@ -11,7 +11,7 @@ export default async function addVote(url, postID, voteType) {
     })
     .then(
       (response) => {
-        console.log("POST RESPONSE: " + JSON.stringify(response.data));
+        // console.log("POST RESPONSE: " + JSON.stringify(response.data));
       },
       (error) => {
         console.log(error);

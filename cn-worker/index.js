@@ -111,7 +111,6 @@ async function postContent(request) {
     await CN_KV_SPACE.put('postCount', count)
     postJSON.id = count
     await CN_KV_SPACE.put(count, JSON.stringify(postJSON))
-    // console.log("New Post: ", JSON.stringify(postJSON))
     return new Response('success', {
       status: 200,
       headers: {

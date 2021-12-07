@@ -12,7 +12,7 @@ export default async function sendPost(url, post) {
     })
     .then(
       (response) => {
-        console.log("POST RESPONSE: " + JSON.stringify(response.data));
+        // console.log("POST RESPONSE: " + JSON.stringify(response.data));
       },
       (error) => {
         console.log(error);

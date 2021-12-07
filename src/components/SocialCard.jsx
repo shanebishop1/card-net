@@ -63,7 +63,11 @@ function SocialCard(props) {
           >
             {props.post.hasOwnProperty("image") && (
               <img
-                style={{ maxHeight: "100%", maxWidth: "100%", borderRadius:"5%" }}
+                style={{
+                  maxHeight: "100%",
+                  maxWidth: "100%",
+                  borderRadius: "5%",
+                }}
                 src={props.post.image}
               />
             )}
